@@ -114,13 +114,13 @@ async def send_telegram_message(message):
          "content": message, 
                 }
            }     
-     try:
-         result = requests.post(url, headers=headers, json=payload)
-         return True
-     except Exception as e:
-         # print("Requset Failed:", e)
-         return False
-    
+
+    try:
+        response = requests.post(url, json=payload, headers=headers)
+        if response.status_code != 200:
+            print(f"发送消息失败: {response.text}")
+    except Exception as e:
+        print(f"发送消息: {e}")
 
 if __name__ == '__main__':
     asyncio.run(main())
