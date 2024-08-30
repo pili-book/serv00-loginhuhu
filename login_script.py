@@ -104,30 +104,18 @@ async def main():
     print(f'所有{serviceName}账号登录完成！')
 
 async def send_telegram_message(message):
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    payload = {
-        'chat_id': TELEGRAM_CHAT_ID,
-        'text': message,
-        'reply_markup': {
-            'inline_keyboard': [
-                [
-                    {
-                        'text': '问题反馈❓',
-                        'url': 'https://t.me/yxjsjl'
-                    }
-                ]
-            ]
+        headers = {"Content-Type": "text/plain"}
+        #李晓良测试企业微信
+        send_url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=5dee497a-e75f-4e06-b1a9-cf0d87da2406"
+        send_data = {
+            "msgtype": "text",  # 消息类型
+            "text": {
+                "content": "serve00的登陆信息"+message,  # 文本内容，最长不超过2048个字节，必须是utf8编码
+                "mentioned_list": ["@all"],
+                # userid的列表，提醒群中的指定成员(@某个成员)，@all表示提醒所有人，如果开发者获取不到userid，可以使用mentioned_mobile_list
+                "mentioned_mobile_list": ["13934579714"]  # 手机号列表，提醒手机号对应的群成员(@某个成员)，@all表示提醒所有人
+            }
         }
-    }
-    headers = {
-        'Content-Type': 'application/json'
-    }
-    try:
-        response = requests.post(url, json=payload, headers=headers)
-        if response.status_code != 200:
-            print(f"发送消息到Telegram失败: {response.text}")
-    except Exception as e:
-        print(f"发送消息到Telegram时出错: {e}")
 
 if __name__ == '__main__':
     asyncio.run(main())
