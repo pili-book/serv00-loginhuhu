@@ -104,15 +104,21 @@ async def main():
     print(f'所有{serviceName}账号登录完成！')
 
 async def send_telegram_message(message):
-        curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=693axxx6-7aoc-4bc4-97a0-0ec2sifa5aaa' \
-        -H 'Content-Type: application/json' \
-        -d '
-        {
-    	     "msgtype": "text",
-    	     "text": {
-        	     "content": "{message}"
-    	      }
-        }'
+     url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=5dee497a-e75f-4e06-b1a9-cf0d87da2406"
+     headers = {
+         "content-type": "application/json"
+     }
+    msg = {"msgtype": "text", 
+     "text": {
+         "content": message, 
+         
+         }}     
+     try:
+         result = requests.post(url, headers=headers, json=msg)
+         return True
+     except Exception as e:
+         # print("Requset Failed:", e)
+         return False
     
 
 if __name__ == '__main__':
