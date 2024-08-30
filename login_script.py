@@ -108,13 +108,14 @@ async def send_telegram_message(message):
      headers = {
          "content-type": "application/json"
      }
-    msg = {"msgtype": "text", 
-     "text": {
+    payload = {
+        "msgtype": "text", 
+        "text": {
          "content": message, 
-         
-         }}     
+                }
+           }     
      try:
-         result = requests.post(url, headers=headers, json=msg)
+         result = requests.post(url, headers=headers, json=payload)
          return True
      except Exception as e:
          # print("Requset Failed:", e)
