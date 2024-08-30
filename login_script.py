@@ -110,7 +110,7 @@ async def send_telegram_message(message):
         {
     	     "msgtype": "text",
     	     "text": {
-        	     "content": "message"
+        	     "content": "{message}"
     	      }
         }'
     
