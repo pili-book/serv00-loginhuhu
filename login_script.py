@@ -104,23 +104,23 @@ async def main():
     print(f'所有{serviceName}账号登录完成！')
 
 async def send_telegram_message(message):
-     url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=5dee497a-e75f-4e06-b1a9-cf0d87da2406"
-     headers = {
-         "content-type": "application/json"
-     }
-    payload = {
-        "msgtype": "text", 
-        "text": {
-         "content": message, 
-                }
-           }     
-
+    url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=5dee497a-e75f-4e06-b1a9-cf0d87da2406"
+    payload ={
+    	"msgtype": "text",
+    	"text": {
+        	"content": message"
+    	}
+   }
+    headers = {
+        'Content-Type': 'application/json'
+    }
     try:
         response = requests.post(url, json=payload, headers=headers)
         if response.status_code != 200:
-            print(f"发送消息失败: {response.text}")
+            print("发送消息失败: {response.text}")
     except Exception as e:
-        print(f"发送消息: {e}")
+        print("发送消息出错: {e}")
+
 
 if __name__ == '__main__':
     asyncio.run(main())
