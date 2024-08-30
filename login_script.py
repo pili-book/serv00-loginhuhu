@@ -100,25 +100,24 @@ async def main():
         await delay_time(delay)
         
     message += f'所有{serviceName}账号登录完成！'
-    await send_telegram_message(message)
+    await send_msg_txt(message)
     print(f'所有{serviceName}账号登录完成！')
 
-async def send_telegram_message(message):
-    url ="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=5dee497a-e75f-4e06-b1a9-cf0d87da2406"
-    payload ={
-    	"msgtype": "text",
-    	"text": {
-        	"content": message"
-    	}
-   }
-    headers = {
-         "content-type": "application/json"
-      }
-    try:
-        response = requests.post(url,headers=headers,json=payload)
-        return True
-    except Exception as e:
-        return False
+async def send_msg_txt(message) :
+
+        headers = {"Content-Type" : "text/plain"}
+        send_url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=69e3bed5-a20e-45be-9999-e30c0398c16c"
+        send_data = {
+            "msgtype": "text",  # 消息类型，此时固定为text
+            "text": {
+                "content": message,  # 文本内容，最长不超过2048个字节，必须是utf8编码
+                "mentioned_list":["@all"],  # userid的列表，提醒群中的指定成员(@某个成员)，@all表示提醒所有人，如果开发者获取不到userid，可以使用mentioned_mobile_list
+                "mentioned_mobile_list":["@all"]  # 手机号列表，提醒手机号对应的群成员(@某个成员)，@all表示提醒所有人
+            }
+        }
+ 
+        res = requests.post(url = send_url, headers = headers, json = send_data)
+        print(res.text)
 
 
 if __name__ == '__main__':
