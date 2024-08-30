@@ -106,7 +106,7 @@ async def main():
 async def send_msg_txt(message) :
 
         headers = {"Content-Type" : "text/plain"}
-        send_url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=69e3bed5-a20e-45be-9999-e30c0398c16c"
+        send_url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=740e2d46-7803-4cd0-a1bf-aa6c10e06649"
         send_data = {
             "msgtype": "text",  # 消息类型，此时固定为text
             "text": {
